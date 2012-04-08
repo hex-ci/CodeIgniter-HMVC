@@ -19,6 +19,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		//$this->load->library('session');
+		//$this->session->all_userdata();
 		$this->load->view('welcome_message');
 	}
 

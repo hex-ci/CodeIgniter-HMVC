@@ -37,6 +37,58 @@ class MY_Loader extends CI_Loader {
 	var $_ci_module_method = '';	// 当前 Module 执行的方法
 
 	/**
+	 * Constructor
+	 *
+	 * Sets the path to the view files and gets the initial output buffering level
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		log_message('debug', "MY_Loader Class Initialized");
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Initialize the Loader
+	 *
+	 * This method is called once in CI_Controller.
+	 *
+	 * @param 	array
+	 * @return 	object
+	 */
+	public function initialize()
+	{
+		// 必须在子类中做如下初始化，不可直接 parent::initialize()
+
+		$this->_ci_classes = array();
+		$this->_ci_loaded_files = array();
+		$this->_ci_models = array();
+		$this->_base_classes =& is_loaded();
+
+		$this->_ci_autoloader();
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------
+
+	// Module 中的 Loader 类实例初始化时，自动调用此函数
+	public function _ci_module_ready($class_path, $class_name)
+	{
+		$this->_ci_is_inside_module = true;
+		$this->_ci_module_path = $class_path;
+		$this->_ci_module_class = $class_name;
+
+		$this->_ci_classes = array();
+		$this->_ci_loaded_files = array();
+		$this->_ci_models = array();
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Module Loader
 	 *
 	 * This function lets users load and instantiate module.
@@ -433,15 +485,6 @@ class MY_Loader extends CI_Loader {
 	}
 
 	// --------------------------------------------------------------------
-
-	// Module 中的 Loader 类实例初始化时，自动调用此函数
-	public function _ci_module_ready($class_path, $class_name)
-	{
-		$this->_ci_is_inside_module = true;
-		$this->_ci_module_path = $class_path;
-		$this->_ci_module_class = $class_name;
-		$this->_ci_models = array();
-	}
 
 	// 根据是否在模块中来取超级对象
 	private function &get_instance()
@@ -979,7 +1022,7 @@ class MY_Loader extends CI_Loader {
 	 * @param	array
 	 * @return	void
 	 */
-	function _ci_autoloader()
+	private function _ci_autoloader()
 	{
 		if (defined('ENVIRONMENT') AND file_exists(APPPATH.'config/'.ENVIRONMENT.'/autoload.php'))
 		{
@@ -1067,7 +1110,7 @@ class MY_Loader extends CI_Loader {
 	 * @access	private
 	 * @return	bool
 	 */
-	function &_ci_get_component($component)
+	public function &_ci_get_component($component)
 	{
 		$CI = $this->get_instance();
 		return $CI->$component;
@@ -1076,7 +1119,7 @@ class MY_Loader extends CI_Loader {
 	// --------------------------------------------------------------------
 
 	// 获取 _base_classes 属性
-	function get_base_classes()
+	public function get_base_classes()
 	{
 		return $this->_base_classes;
 	}

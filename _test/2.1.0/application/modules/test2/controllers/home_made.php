@@ -19,6 +19,9 @@ class Test2_Home_Made_module extends CI_Module {
 		$this->load->model('Main_data_model');
 		$this->Main_data_model->start();
 
+		//$this->load->library('session');
+		//$this->session->all_userdata();
+
 		$this->load->view('view_test');
 	}
 }
