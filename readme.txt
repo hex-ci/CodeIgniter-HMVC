@@ -53,6 +53,7 @@ http://codeigniter.org.cn/forums/thread-1319-1-1.html
 
 更新记录
 
+2012.4.8 修复一个自动装载类库后，模块中此类库无法使用的 BUG。
 2012.2.19 增加对 CodeIgniter 2.1.0 的支持。
 2011.8.9 修复从 URL 访问 Module 的时候，autoload 无效的 BUG。
 2011.7.28 增加从 URL 访问 Module 的功能。
