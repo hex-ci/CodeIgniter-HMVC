@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="HMVC : 为 CodeIgniter 增加 HMVC 支持" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>HMVC</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/CodeIgniter/HMVC">Fork Me on GitHub</a>
+
+          <h1 id="project_title">HMVC</h1>
+          <h2 id="project_tagline">为 CodeIgniter 增加 HMVC 支持</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/CodeIgniter/HMVC/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/CodeIgniter/HMVC/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>欢迎大家使用 CodeIgniter HMVC 扩展！</p>
+
+<p>如果您还不了解什么是 HMVC，请先移步维基百科查看：
+<a href="http://zh.wikipedia.org/wiki/HMVC">http://zh.wikipedia.org/wiki/HMVC</a></p>
+
+<p>一直感觉 CodeIgniter 缺乏好的 HMVC 架构，而且我个人认为目前的几个 HMVC 第三方类库都不是很好，有的要修改 CI 的源代码，有的要引入新的语法，这都不是我喜欢的方式，所以我自己研究了一个方案，希望大家多多提出宝贵意见。我的 HMVC 特点就是不修改 CI 源代码，不引入新的语法，完全是利用 CI 强大的扩展机制。</p>
+
+<p>目前的扩展方式是在 application 目录下增加 modules 目录，每个模块有自己的目录，并且模块可以有一级子目录，比如 application/modules/目录/模块名/....；</p>
+
+<p>每个模块都有自己的 MVC 结构，像这样 application/modules/模块名/controllers; application/modules/模块名/models; application/modules/模块名/views 在视图中装载模块：</p>
+
+<p>$this-&gt;load-&gt;module('模块名/控制器/方法');</p>
+
+<p>这里也可以使用 URL 路由中的默认控制器，默认的方法是 index() 方法，和普通控制器保持一致。如果要传递参数：</p>
+
+<p>$this-&gt;load-&gt;module('模块名/控制器/方法', array('参数1', '参数2', ...));</p>
+
+<p>如果需要返回模块的结果而不想输出到屏幕，可以把第 3 个参数设置为 TRUE：</p>
+
+<p>$this-&gt;load-&gt;module('模块名', array('参数1', '参数2', ...), TRUE);</p>
+
+<p>如果需要从 URL 访问某个模块的某个方法，URL 规则是这样的：</p>
+
+<p>http://domain/index.php/module/模块名/控制器/方法</p>
+
+<p>实际上 /module 后面的内容和前面传入 $this-&gt;load-&gt;module() 中的参数一致。</p>
+
+<p>如果要通过 URL 传递参数，则直接加在 URL 后面：</p>
+
+<p>http://domain/index.php/module/模块名/控制器/方法/参数1/参数2/..../参数n</p>
+
+<p>另外，这里的 URI 可以使用路由规则，也就是说什么样的 URL 都可以，只要最后路由成符合上面的规则即可，比如要使用这样的 URL：</p>
+
+<p>http://domain/index.php/m/模块名/控制器/方法</p>
+
+<p>可以在 routers.php 里添加一个路由规则：</p>
+
+<p>$route['m/(:any)'] = 'module/$1';</p>
+
+<p>如果要在某个模块的视图里生成访问当前模块当前控制器的某方法的 URL，可以在视图里这样写：</p>
+
+<p>&lt;?php echo $this-&gt;module_url('要访问的方法名/参数1/..../参数n'); ?&gt;</p>
+
+<p>如果要生成当前模块其他控制器的方法的 URL，可以这样：</p>
+
+<p>&lt;?php echo $this-&gt;module_url('要访问的方法名/参数1/..../参数n', '控制器名'); ?&gt;</p>
+
+<p>基本上就是这样，如果大家有不清楚的，我会在论坛详细解答：
+<a href="http://codeigniter.org.cn/forums/thread-1319-1-1.html">http://codeigniter.org.cn/forums/thread-1319-1-1.html</a></p>
+
+<p>压缩包解压后，其中有控制器、模型、视图和模块的简单例子，并且其中只包含模块所需的代码，不包含 CI 核心代码。</p>
+
+<p>更新记录</p>
+
+<p>2012.2.19 增加对 CodeIgniter 2.1.0 的支持。
+2011.8.9 修复从 URL 访问 Module 的时候，autoload 无效的 BUG。
+2011.7.28 增加从 URL 访问 Module 的功能。
+2011.4.13 修正 autoload 对 module 无效的 BUG。
+2011.4.11 支持最新的 CI 2.0.0，完全为 PHP5 重写 HMVC 所有代码。
+2011.1.8 支持在控制器里直接载入一个或多个模块；修复在模块里装载类库报错的 BUG；
+2010.12.15 支持在控制器中直接装载模块。
+2010.8.7 修正一个在 Module 的构造函数中装载 Model 报错的 BUG。</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">HMVC maintained by <a href="https://github.com/CodeIgniter">CodeIgniter</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
