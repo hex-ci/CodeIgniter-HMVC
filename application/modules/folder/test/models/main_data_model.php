@@ -2,15 +2,16 @@
 
 class Folder_Test_Main_data_model extends CI_Model {
 
-	function __construct()
-	{
-		parent::__construct();
-	}
+    function __construct()
+    {
+        parent::__construct();
+        echo $this->test1;
+    }
 
-	function start()
-	{
-		echo '<p>Folder_Test_Main_data_model</p>';
-	}
+    function start()
+    {
+        echo '<p>Folder_Test_Main_data_model</p>';
+        echo $this->test2;
+    }
 
 }
-?>
