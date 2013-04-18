@@ -1,5 +1,5 @@
-# 欢迎大家使用 CodeIgniter HMVC 扩展！
-=====================================
+## 欢迎大家使用 CodeIgniter HMVC 扩展！
+
 
 如果您还不了解什么是 HMVC，请先移步维基百科查看：
 
@@ -10,7 +10,7 @@
 
 目前的扩展方式是在 application 目录下增加 modules 目录，每个模块有自己的目录，并且模块可以有一级子目录，比如 application/modules/目录/模块名/....；
 
-每个模块都有自己的 MVC 结构，像这样 application/modules/模块名/controllers; application/modules/模块名/models; application/modules/模块名/views 在视图中装载模块：
+每个模块都有自己的 MVC 结构，像这样 `application/modules/模块名/controllers`; `application/modules/模块名/models`; `application/modules/模块名/views` 在视图中装载模块：
 
 	$this->load->module('模块名/控制器/方法');
 
@@ -26,7 +26,7 @@
 
 	http://domain/index.php/module/模块名/控制器/方法
 
-实际上 /module 后面的内容和前面传入 $this->load->module() 中的参数一致。
+实际上 `/module` 后面的内容和前面传入 `$this->load->module()` 中的参数一致。
 
 如果要通过 URL 传递参数，则直接加在 URL 后面：
 
@@ -55,22 +55,14 @@
 压缩包解压后，其中有控制器、模型、视图和模块的简单例子，并且其中只包含模块所需的代码，不包含 CI 核心代码。
 
 
-## 更新记录
+### 更新记录
 
-2012.4.8 修复一个自动装载类库后，模块中此类库无法使用的 BUG。
-
-2012.2.19 增加对 CodeIgniter 2.1.0 的支持。
-
-2011.8.9 修复从 URL 访问 Module 的时候，autoload 无效的 BUG。
-
-2011.7.28 增加从 URL 访问 Module 的功能。
-
-2011.4.13 修正 autoload 对 module 无效的 BUG。
-
-2011.4.11 支持最新的 CI 2.0.0，完全为 PHP5 重写 HMVC 所有代码。
-
-2011.1.8 支持在控制器里直接载入一个或多个模块；修复在模块里装载类库报错的 BUG；
-
-2010.12.15 支持在控制器中直接装载模块。
-
-2010.8.7 修正一个在 Module 的构造函数中装载 Model 报错的 BUG。
+- 2012.4.8 修复一个自动装载类库后，模块中此类库无法使用的 BUG。
+- 2012.2.19 增加对 CodeIgniter 2.1.0 的支持。
+- 2011.8.9 修复从 URL 访问 Module 的时候，autoload 无效的 BUG。
+- 2011.7.28 增加从 URL 访问 Module 的功能。
+- 2011.4.13 修正 autoload 对 module 无效的 BUG。
+- 2011.4.11 支持最新的 CI 2.0.0，完全为 PHP5 重写 HMVC 所有代码。
+- 2011.1.8 支持在控制器里直接载入一个或多个模块；修复在模块里装载类库报错的 BUG；
+- 2010.12.15 支持在控制器中直接装载模块。
+- 2010.8.7 修正一个在 Module 的构造函数中装载 Model 报错的 BUG。
