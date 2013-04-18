@@ -8,9 +8,9 @@
 
 一直感觉 CodeIgniter 缺乏好的 HMVC 架构，而且我个人认为目前的几个 HMVC 第三方类库都不是很好，有的要修改 CI 的源代码，有的要引入新的语法，这都不是我喜欢的方式，所以我自己研究了一个方案，希望大家多多提出宝贵意见。我的 HMVC 特点就是不修改 CI 源代码，不引入新的语法，完全是利用 CI 强大的扩展机制。
 
-目前的扩展方式是在 application 目录下增加 modules 目录，每个模块有自己的目录，并且模块可以有一级子目录，比如 application/modules/目录/模块名/....；
+目前的扩展方式是在 application 目录下增加 modules 目录，每个模块有自己的目录，并且模块可以有一级子目录，比如 `application/modules/目录/模块名/....`
 
-每个模块都有自己的 MVC 结构，像这样 `application/modules/模块名/controllers`; `application/modules/模块名/models`; `application/modules/模块名/views` 在视图中装载模块：
+每个模块都有自己的 MVC 结构，像这样 `application/modules/模块名/controllers`，`application/modules/模块名/models`，`application/modules/模块名/views` 在视图中装载模块：
 
 	$this->load->module('模块名/控制器/方法');
 
