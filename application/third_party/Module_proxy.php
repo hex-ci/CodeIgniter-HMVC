@@ -58,5 +58,5 @@ class Module_proxy extends CI_Controller {
 
 }
 
-/* End of file module_proxy.php */
+/* End of file Module_proxy.php */
 /* Location: ./application/third_party/Module_proxy.php */
