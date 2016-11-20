@@ -54,11 +54,15 @@ class MY_Loader extends CI_Loader {
     // Module 中的 Loader 类实例初始化时，自动调用此函数
     public function _ci_module_ready($class_path, $class_name)
     {
+        $CI =& get_instance();
+
         $this->_ci_is_inside_module = true;
         $this->_ci_module_path = $class_path;
         $this->_ci_module_class = $class_name;
 
-        $this->_ci_classes = array();
+        unset($this->_ci_classes);
+        $this->_ci_classes = $CI->load->_ci_classes;
+
         $this->_ci_models = array();
     }
 
@@ -866,6 +870,15 @@ class MY_Loader extends CI_Loader {
             // Safety: Was the class already loaded by a previous call?
             if (class_exists($class, FALSE))
             {
+                if (!empty($this->_ci_module_path))
+                {
+                    $CI = $this->get_instance();
+                    if ( ! isset($CI->$class))
+                    {
+                        return $this->_ci_init_library($class, '', $params, $object_name);
+                    }
+                }
+
                 // Before we deem this to be a duplicate request, let's see
                 // if a custom object name is being supplied. If so, we'll
                 // return a new instance of the object

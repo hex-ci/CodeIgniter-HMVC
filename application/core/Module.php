@@ -33,7 +33,7 @@ class CI_Module {
 				continue;
 			}
 			// 赋值给 Module
-			$this->$var =& $CI->load->$var;
+			$this->$var =& $CI->$var;
 		}
 		// 处理自动装载的类库和模型
 		$autoload = array_merge($CI->load->_ci_autoload_libraries, $CI->load->_ci_autoload_models);
