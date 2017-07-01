@@ -51,7 +51,13 @@ http://domain/index.php/m/模块名/控制器/方法
 可以在 routers.php 里添加一个路由规则：
 
 ```php
-$route['m/(:any)'] = 'module/$1';
+$route['m/(:any)/(:any)/(:any)/(:any)'] = 'module/$1/$2/$3/$4';
+```
+
+或者
+
+```php
+$route['m/(.*)'] = 'module/$1';
 ```
 
 如果要在某个模块的视图里生成访问当前模块当前控制器的某方法的 URL，可以在视图里这样写：
@@ -75,6 +81,7 @@ $route['m/(:any)'] = 'module/$1';
 
 ### 更新记录
 
+-   2017.07.01 支持 CodeIgniter 3.1.5。
 -   2016.11.20 支持 CodeIgniter 3.1.2 & 修复一些 BUG。
 -   2016.4.25 支持 CodeIgniter 3.0.6
 -   2013.4.18 修复一个在模块中的模型，无法访问当前模块变量的 BUG。

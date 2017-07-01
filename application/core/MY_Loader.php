@@ -189,7 +189,7 @@ class MY_Loader extends CI_Loader {
 
             // Call the requested method.
             // Any URI segments present (besides the class/function) will be passed to the method for convenience
-            $output = call_user_func_array(array($CI->$class_name, $method), $module_load->_ci_object_to_array($vars));
+            $output = call_user_func_array(array($CI->$class_name, $method), $this->_ci_object_to_array($vars));
 
             if ($return === TRUE)
             {
@@ -1132,6 +1132,22 @@ class MY_Loader extends CI_Loader {
     public function get_base_classes()
     {
         return $this->_ci_classes;
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+     * CI Object to Array translator
+     *
+     * Takes an object as input and converts the class variables to
+     * an associative array with key/value pairs.
+     *
+     * @param	object	$object	Object data to translate
+     * @return	array
+     */
+    protected function _ci_object_to_array($object)
+    {
+        return is_object($object) ? get_object_vars($object) : $object;
     }
 }
 
